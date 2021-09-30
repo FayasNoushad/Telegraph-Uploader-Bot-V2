@@ -1,6 +1,6 @@
 pyrogram
 tgcrypto
-telegraph
-motor
-aiofiles
-dnspython
+telegraph #telegra.ph
+motor     #motor
+aiofiles  #aio
+dnspython #dns
