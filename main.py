@@ -65,8 +65,6 @@ ABOUT_TEXT = """--**About Me**-- 😎
 
 📢 **Channel :** [Fayas Noushad](https://telegram.me/SLBotsOfficial)
 
-👥 **Group :** [Developer Team](https://telegram.me/trtechguide)
-
 📝 **Language :** [Python3](https://python.org)
 
 🧰 **Framework :** [Pyrogram](https://pyrogram.org)
@@ -121,7 +119,7 @@ async def send_msg(user_id, message):
 async def cb_handler(bot, update):
     if update.data == "home":
         await update.message.edit_text(
-            text=START_BUTTONS.format(update.from_user.mention),
+            text=START_TEXT.format(update.from_user.mention),
             reply_markup=START_BUTTONS,
             disable_web_page_preview=True
         )
@@ -280,6 +278,18 @@ async def broadcast(bot, update):
 	else:
 	    await update.reply_document(document='broadcast.txt', caption=f"broadcast completed in `{completed_in}`\n\nTotal users {total_users}.\nTotal done {done}, {success} success and {failed} failed.")
 	os.remove('broadcast.txt')
+
+
+@Bot.on_message(filters.private & filters.command("status"), group=5)
+async def status(bot, update):
+    total_users = await db.total_users_count()
+    text = "**Bot Status**\n"
+    text += f"\n**Total Users:** `{total_users}`"
+    await update.reply_text(
+        text=text,
+        quote=True,
+        disable_web_page_preview=True
+    )
 
 
 Bot.run()
